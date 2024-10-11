@@ -5,7 +5,6 @@ using ClearBank.DeveloperTest.Services;
 using ClearBank.DeveloperTest.Services.PaymentSchemeStrategies;
 using ClearBank.DeveloperTest.Services.PaymentSchemeStrategies.StrategyResolver;
 using ClearBank.DeveloperTest.Types;
-using ClearBank.DeveloperTest.Validation;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -28,8 +27,7 @@ public class PaymentServiceE2ETests
                 new BacsPaymentSchemeStrategy(),
                 new ChapsPaymentSchemeStrategy(),
                 new FasterPaymentsSchemeStrategy()
-            }),
-            new MakePaymentRequestValidator());
+            }));
     }
     
     [Theory]

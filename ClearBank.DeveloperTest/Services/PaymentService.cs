@@ -7,15 +7,14 @@ namespace ClearBank.DeveloperTest.Services
 {
     public class PaymentService(
         IDataStoreFactory dataStoreFactory,
-        IPaymentSchemeStrategyResolver paymentSchemeStrategyResolver,
-        IMakePaymentRequestValidator paymentRequestValidator)
+        IPaymentSchemeStrategyResolver paymentSchemeStrategyResolver)
         : IPaymentService
     {   
         private readonly IAccountDataStore _accountDataStore = dataStoreFactory.GetDataStore();
 
         public MakePaymentResult MakePayment(MakePaymentRequest request)
         {
-            if (!paymentRequestValidator.IsValid(request)) return new MakePaymentResult{ Success = false };
+            if (!MakePaymentRequestValidator.IsValid(request)) return new MakePaymentResult{ Success = false };
             
             var account = _accountDataStore.GetAccount(request.DebtorAccountNumber);
             // Would prefer to respond with something for useful to the user, depending on the interface, maybe a problem details exception highlighting the account was not found.

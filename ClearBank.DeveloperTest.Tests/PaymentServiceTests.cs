@@ -16,7 +16,6 @@ public class PaymentServiceTests
     private readonly Mock<IAccountDataStore> _accountDataStore = new();
     private readonly Mock<IDataStoreFactory> _dataStoreFactory = new();
     private readonly Mock<IPaymentSchemeStrategyResolver> _paymentSchemeResolver = new();
-    private readonly Mock<IMakePaymentRequestValidator> _makePaymentRequestValidatorMock = new();
     private readonly Fixture _fixture = new();
     private readonly IPaymentService _sut;
 
@@ -24,10 +23,7 @@ public class PaymentServiceTests
     {
         _dataStoreFactory.Setup(x => x.GetDataStore()).Returns(_accountDataStore.Object);
         _sut = new PaymentService(_dataStoreFactory.Object, 
-            _paymentSchemeResolver.Object,
-            _makePaymentRequestValidatorMock.Object);
-
-        _makePaymentRequestValidatorMock.Setup(x => x.IsValid(It.IsAny<MakePaymentRequest>())).Returns(true);
+            _paymentSchemeResolver.Object);
     }
 
     [Fact]
